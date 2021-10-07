@@ -5,12 +5,14 @@ import matplotlib.pyplot as plt
 from apyori import apriori
 
 def app():
+    
+    
     st.title("Reglas de Asociacion")
     
 
-    st.title('IntelliShow')
+    
 
-    DatosPeliculas = pd.read_csv('movies.csv', header=None)
+    DatosPeliculas = pd.read_csv('DATA/movies.csv', header=None)
     st.write(DatosPeliculas.head(10))
 
     Transacciones = DatosPeliculas.values.reshape(-1).tolist()
