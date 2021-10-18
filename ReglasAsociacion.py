@@ -36,7 +36,7 @@ def app():
         Lista = Lista.groupby(by=[0], as_index=False).count().sort_values(by=['Frecuencia'], ascending=True)
         Lista['Porcentaje'] = (Lista['Frecuencia']/Lista['Frecuencia'].sum())
         Lista = Lista.rename(columns={0:'Item'})
-        lista_opcional = st.expander("Lista de frecuencia:", False)
+        lista_opcional = st.expander("Lista de Frecuencia", False)
         lista_opcional.write(Lista)
 
 

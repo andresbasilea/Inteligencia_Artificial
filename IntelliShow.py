@@ -3,9 +3,10 @@ import streamlit as st
 import MetricasDistancia
 import ReglasAsociacion
 import Bienvenida
+import ClusteringJerarquico
 import re
 
-TABS = {"Inicio": Bienvenida, "Métricas Distancia": MetricasDistancia, "Reglas de Asociación": ReglasAsociacion}
+TABS = {"Inicio": Bienvenida, "Métricas Distancia": MetricasDistancia, "Reglas de Asociación (A priori)": ReglasAsociacion, "Clústering Jerárquico": ClusteringJerarquico}
 
 
 
