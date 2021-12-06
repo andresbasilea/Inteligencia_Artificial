@@ -4,9 +4,10 @@ import MetricasDistancia
 import ReglasAsociacion
 import Bienvenida
 import ClusteringJerarquico
+import ClusteringParticional
 import re
 
-TABS = {"Inicio": Bienvenida, "Métricas Distancia": MetricasDistancia, "Reglas de Asociación (A priori)": ReglasAsociacion, "Clústering Jerárquico": ClusteringJerarquico}
+TABS = {"Inicio": Bienvenida, "Métricas Distancia": MetricasDistancia, "Reglas de Asociación (A priori)": ReglasAsociacion, "Clústering Jerárquico": ClusteringJerarquico, "Clústering Particional": ClusteringParticional}
 
 
 
