@@ -3,11 +3,13 @@ import streamlit as st
 import MetricasDistancia
 import ReglasAsociacion
 import Bienvenida
-import ClusteringJerarquico
-import ClusteringParticional
+import Clustering
+import ClasificacionLogistica
+import ArbolClasificacion
+import ArbolPronostico
 import re
 
-TABS = {"Inicio": Bienvenida, "Métricas Distancia": MetricasDistancia, "Reglas de Asociación (A priori)": ReglasAsociacion, "Clústering Jerárquico": ClusteringJerarquico, "Clústering Particional": ClusteringParticional}
+TABS = {"Inicio": Bienvenida, "Métricas Distancia": MetricasDistancia, "Reglas de Asociación (A priori)": ReglasAsociacion, "Clústering": Clustering, "Clasificación R. Logística": ClasificacionLogistica, "Árbol de Decisión (pronóstico)": ArbolPronostico, "Árbol de Decisión (clasificación)": ArbolClasificacion}
 
 
 
