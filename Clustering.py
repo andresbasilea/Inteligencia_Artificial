@@ -10,6 +10,7 @@ from sklearn.cluster import AgglomerativeClustering
 from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances_argmin_min
 from kneed import KneeLocator
+from datetime import datetime
 
 def app():
     colorFondo = '#FEFBF3'
@@ -99,10 +100,10 @@ def app():
             st.caption('Número de elementos en cada cluster')
             st.write(DataFrameArchivo.groupby(['cluster'])['cluster'].count())
 
-            st.write("#")
-            st.caption('Centroides para cada cluster')
-            CentroidesP = DataFrameArchivo.groupby('cluster').mean()
-            st.write(CentroidesP)
+            # st.write("#")
+            # st.caption('Centroides para cada cluster')
+            # CentroidesP = DataFrameArchivo.groupby('cluster').mean()
+            # st.write(CentroidesP)
 
             if int(k2) == int(k):
                 st.write("#")
@@ -145,13 +146,44 @@ def app():
 
             st.caption("Los elementos y sus respectivos clústers")
             DataFrameArchivo = DataFrameArchivo.drop(columns=['comprar'])
-            DataFrameArchivo['clusterH'] = MJerarquico.labels_
+            DataFrameArchivo['cluster'] = MJerarquico.labels_
             st.write(DataFrameArchivo)
 
-            
-            
-
-
-
-
+        nElemCluster  = DataFrameArchivo.groupby(['cluster'])['cluster'].count()
+        st.write(nElemCluster)
         
+        numClusterSeleccion = st.slider("Seleccione de qué clúster quiere visualizar sus elementos",min_value = 0, max_value = max(DataFrameArchivo['cluster']), value = 0)
+        st.write(DataFrameArchivo[DataFrameArchivo.cluster == int(numClusterSeleccion)])
+
+        st.write("#")
+        st.caption("Centroides")
+        CentroidesH = DataFrameArchivo.groupby('cluster').mean()
+        st.write(CentroidesH)
+
+
+        ObservacionesClusters = CentroidesH.values.tolist()
+        
+        Observaciones = []
+        DatosCluster = "Fecha: " + str(datetime.now())
+        DatosCluster += "Análisis clusters. Fuente de datos: " + archivo.name + "\n"
+        DatosCluster += "Método utilizado: Clustering " + opcion + "\n\n"
+        for contador in range (0, int(nclusters)):
+            st.caption("Cluster " + str(contador) + ":")
+            DatosCluster += "Cluster "+ str(contador) + ":\n"
+            contador2 = 0
+            st.write("Número de elementos en el cluster: " + str(nElemCluster[contador]))
+            DatosCluster += "Número de elementos en el cluster: " + str(nElemCluster[contador]) + "\n"
+            for i in CentroidesH:
+                st.write(i + ' :', ObservacionesClusters[contador][contador2])
+                DatosCluster += i + ' :' + str(ObservacionesClusters[contador][contador2]) + "\n"
+                contador2+=1
+            
+            Observaciones.append(st.text_input('Observaciones cluster ' + str(contador) + ' :', ""))
+            DatosCluster += "\nObservaciones:\n"
+            DatosCluster += Observaciones[contador] + "\n\n"
+        st.download_button('Descargar análisis de clusters', file_name='clustering' + opcion +'.txt', data = DatosCluster)
+
+
+        # st.caption("Analicemos el cluster # ")
+        # numcluster = st.text_input("Ingresa el número de clúster a analizar", 0)
+    

@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from apyori import apriori
 from apyori import dump_as_json
 import json
+from datetime import datetime
 
 
 
@@ -66,10 +67,19 @@ def app():
                    min_lift=float(elevacion))
         ResultadoC1 = list(ReglasC1)
         st.subheader("Reglas de asociación encontradas: " + str(len(ResultadoC1))  )
+        
 
         j = 0
+        datos = "Fecha de generación " + str(datetime.now())
+        datos += "\n\nReglas de asociación generadas para el conjunto: " + archivo.name
+
         for i in ResultadoC1:
             j+=1
             st.markdown("__Regla__ " + "__"+str(j)+"__" + ":")
+            datos += "\n\n\n__Regla__ " + str(j)+ ":"
+            datos += str(list(i[0])) + "\nSoporte: " + str(round(i[1],5)) + "\nConfianza: " + str(round(list(i[2][0])[2],5)) + ", \nElevación: " + str(round(list(i[2][0])[3],5))
             st.write(list(i[0]), "Soporte: ", round(i[1],5), ", Confianza: ", round(list(i[2][0])[2],5), ", Elevación: ", round(list(i[2][0])[3],5))
-            st.text_area("Observaciones", key=j)
+            observacion = st.text_input("Observaciones", key=j)
+            datos += "\nObservación sobre la regla: " + str(observacion)
+
+        st.download_button("Descargar reglas y observaciones (.txt)", file_name='ReglasAsociacion' + '.txt', data = datos)
