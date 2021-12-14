@@ -71,15 +71,15 @@ def app():
 
         j = 0
         datos = "Fecha de generación " + str(datetime.now())
-        datos += "\n\nReglas de asociación generadas para el conjunto: " + archivo.name
+        datos += "\n\nReglas de asociación del conjunto: " + archivo.name
 
         for i in ResultadoC1:
             j+=1
-            st.markdown("__Regla__ " + "__"+str(j)+"__" + ":")
-            datos += "\n\n\n__Regla__ " + str(j)+ ":"
+            st.write("Regla " +str(j)+ + ":")
+            datos += "\n\n\nRegla" + str(j)+ ":"
             datos += str(list(i[0])) + "\nSoporte: " + str(round(i[1],5)) + "\nConfianza: " + str(round(list(i[2][0])[2],5)) + ", \nElevación: " + str(round(list(i[2][0])[3],5))
             st.write(list(i[0]), "Soporte: ", round(i[1],5), ", Confianza: ", round(list(i[2][0])[2],5), ", Elevación: ", round(list(i[2][0])[3],5))
             observacion = st.text_input("Observaciones", key=j)
-            datos += "\nObservación sobre la regla: " + str(observacion)
+            datos += "\nObservación sobre la regla " + str(observacion)
 
         st.download_button("Descargar reglas y observaciones (.txt)", file_name='ReglasAsociacion' + '.txt', data = datos)
